@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&e87l$b_#=g(s-pb4ioll_^_#!d9nu$61cohno-z=yj%1^ey!!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,15 +78,7 @@ WSGI_APPLICATION = 'moviebase.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'HOST': '127.0.0.1',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'movie_api',
-        'USER': 'postgres',
-        'PASSWORD': 'coderslab',
-    }
-}
+
 
 
 # Password validation
@@ -129,3 +120,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+try:
+    from coderslab.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("Database configuration in local_settings.py is missing!")
+    print("Fill the data and try again!")
+    exit(0)
+
+
+try:
+    from coderslab.local_settings import SECRET_KEY
+except ModuleNotFoundError:
+    print("Secretkey in local_settings.py is missing!")
+    print("Fill the data and try again!")
+    exit(0)
